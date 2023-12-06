@@ -102,6 +102,11 @@ public class lecture14_Home {
         privateButton.click();
         //wait.until(ExpectedConditions.elementToBeSelected(privateButton));
 
+        //wait until pic is visible
+        WebElement imgButton = driver.findElement(By.xpath("//*[@src='https://i.imgur.com/QXMf6HA.jpg']"));
+        wait.until(ExpectedConditions.visibilityOf(imgButton));
+
+
 //        //wait until "Private" tab is selected
 //        WebElement privateTab = driver.findElement(By.xpath("//*[@class='btn-private btn btn-primary active']"));
 //        wait.until(ExpectedConditions.elementToBeSelected(privateTab));

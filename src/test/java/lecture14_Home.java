@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.time.Duration;
+import java.util.List;
 
 public class lecture14_Home {
 
@@ -36,15 +37,15 @@ public class lecture14_Home {
 //        }
 //    }
 
-//    @DataProvider(name = "getUsers")
-//    public Object[][] getUsers() {
-//        return new Object[][]{
-//                {"tedi.qnkova@abv.bg", "test123", "Tedi"}
-//        };
-//    }
+    @DataProvider(name = "getUsers")
+    public Object[][] getUsers() {
+        return new Object[][]{
+                {"tedi.qnkova@abv.bg", "test123", "Tedi"}
+        };
+    }
 
-    @Test()
-    public void testLoginHomePage() {
+    @Test(dataProvider = "getUsers")
+    public void testLoginHomePage(String userName, String password, String email) {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
@@ -65,8 +66,8 @@ public class lecture14_Home {
         wait.until(ExpectedConditions.urlToBe("http://training.skillo-bg.com:4200/users/login"));
 
         //enter username
-        WebElement emailField = driver.findElement(By.xpath("//*[@id='defaultLoginFormUsername']"));
-        emailField.sendKeys("Tedi");
+        WebElement username = driver.findElement(By.xpath("//*[@id='defaultLoginFormUsername']"));
+        username.sendKeys("Tedi");
 
         //enter password
         WebElement passwordField = driver.findElement(By.id("defaultLoginFormPassword"));
@@ -91,37 +92,102 @@ public class lecture14_Home {
         WebElement searchField = driver.findElement(By.xpath("//*[@id='search-bar']"));
         wait.until(ExpectedConditions.elementToBeClickable(searchField));
 
-        //click on user link
-        WebElement userLink = driver.findElement(By.linkText("//*[@href='/users/5068']"));
-        userLink.click();
-        wait.until(ExpectedConditions.urlToBe("http://training.skillo-bg.com:4200/users/5068"));
+        //click on Profile button
+        WebElement profileButton = driver.findElement(By.id("nav-link-profile"));
+        profileButton.click();
+        wait.until(ExpectedConditions.urlToBe("http://training.skillo-bg.com:4200/users/5066"));
 
-        //open post
-        WebElement openAPost = driver.findElement(By.xpath("//*[@src='https://i.imgur.com/sB995GN.jpg']']"));
-        openAPost.click();
+        //click on private button
+        WebElement privateButton = driver.findElement(By.xpath("//*[@class='btn-private btn btn-primary']"));
+        privateButton.click();
+        //  wait.until(ExpectedConditions.elementToBeSelected(privateButton));
 
-        //check that comment field is visible
-        WebElement commentField = driver.findElement(By.xpath("//*[@formcontrolname='content']"));
-        wait.until(ExpectedConditions.elementToBeClickable(commentField));
-        // commentField.click();
+//        //wait until "Private" tab is selected
+//        WebElement privateTab = driver.findElement(By.xpath("//*[@class='btn-private btn btn-primary active']"));
+//        wait.until(ExpectedConditions.elementToBeSelected(privateTab));
 
-        //click on Follow button
-        WebElement followButton = driver.findElement(By.xpath("//*[@class=\"btn btn-primary ng-star-inserted\"]"));
-        wait.until(ExpectedConditions.elementToBeClickable(followButton));
-        followButton.click();
+//        //click on the post
+//        WebElement imgButton = driver.findElement(By.xpath("//*[@src='https://i.imgur.com/QXMf6HA.jpg']"));
+//        imgButton.click();
 
-        //click on Unfollow button
+//        //check that comment field is visible
+//        WebElement commentField = driver.findElement(By.xpath("//*[@formcontrolname='content']"));
+//        wait.until(ExpectedConditions.elementToBeClickable(commentField));
+//        // commentField.click();
+//
+//        //click on like button
+//        WebElement likeButton = driver.findElement(By.xpath("//*[@class='like far fa-heart fa-2x']"));
+//        likeButton.click();
+//
+//        //wait until toast "Post licked" is visible
+//        WebElement toastLicked = driver.findElement(By.xpath("//*[@class='toast-bottom-right toast-container']"));
+//        wait.until(ExpectedConditions.visibilityOf(toastLicked));
+//
+//        WebElement likeCounter = driver.findElement(By.xpath("//div[2]/div[1]/strong"));
+//        wait.until(ExpectedConditions.visibilityOf(likeCounter));
+//
+//        //click on dislike button
+//        WebElement dislikesButton1 = driver.findElement(By.xpath("//*[@class='ml-4 far fa-thumbs-down fa-2x']"));
+//        dislikesButton1.click();
+
+//        //click on unlike button
+//        WebElement unlikeButton = driver.findElement(By.xpath("//*[@class='like far fa-heart fa-2x liked']"));
+//        unlikeButton.click();
+//
+//        //click on dislike button
+//        WebElement dislikesButton2 = driver.findElement(By.xpath("//*[@class='ml-4 far fa-thumbs-down fa-2x liked']"));
+//        dislikesButton2.click();
 
 
-        //like a post
-        WebElement likeAPost = driver.findElement(By.xpath("//*[@class='like far fa-heart fa-2x']"));
-    //    WebElement likeAPost = driver.findElement(By.id("like far fa-heart fa-2x"));
-        likeAPost.click();
+//        //click on a post
+//        WebElement postButton = driver.findElement(By.xpath("//*[@class='post-img']"));
+//        postButton.click();
+//
+//        //check that comment field is visible
+//        WebElement commentField = driver.findElement(By.xpath("//*[@formcontrolname='content']"));
+//        wait.until(ExpectedConditions.elementToBeClickable(commentField));
+//        // commentField.click();
+//
 
-        //dislike a post
-      //  WebElement dislikePost = driver.findElement(By.xpath("//*[@class='ml-4 far fa-thumbs-down fa-2x liked']"));
-        WebElement dislikePost = driver.findElement(By.className("ml-4 far fa-thumbs-down fa-2x"));
-        dislikePost.click();
+
+//        //wait until toast "Post licked" is visible
+//        WebElement toastLicked = driver.findElement(By.xpath("//*[@class='toast-bottom-right toast-container']"));
+//        wait.until(ExpectedConditions.visibilityOf(toastLicked));
+//
+//        //click on dislikes button
+//        WebElement dislikesButton = driver.findElement(By.xpath("//*[@class='ml-4 far fa-thumbs-down fa-2x']"));
+//        dislikesButton.click();
+//        dislikesButton.click();
+
+//        //wait until toast "Post disliked" is visible
+//        WebElement toastDisliked = driver.findElement(By.xpath("//*[@class='ml-4 far fa-thumbs-down fa-2x'"));
+//        wait.until(ExpectedConditions.visibilityOf(toastDisliked));
+
+    }
+
+    @Test(dataProvider = "getUsers")
+    public void followUnfollowPage(String userName, String password, String email) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        driver.get("http://training.skillo-bg.com:4200/users/login");
+
+        //enter username
+        WebElement username = driver.findElement(By.xpath("//*[@id='defaultLoginFormUsername']"));
+        username.sendKeys("Tedi");
+
+        //enter password
+        WebElement passwordField = driver.findElement(By.id("defaultLoginFormPassword"));
+        passwordField.sendKeys("test123");
+
+        //click on signIn button
+        WebElement signInButton = driver.findElement(By.id("sign-in-button"));
+        wait.until(ExpectedConditions.elementToBeClickable(signInButton));
+        signInButton.click();
+
+        //wait for the login page to be loaded
+        wait.until(ExpectedConditions.urlToBe("http://training.skillo-bg.com:4200/posts/all"));
+
 
     }
 

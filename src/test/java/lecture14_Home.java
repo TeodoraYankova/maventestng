@@ -100,7 +100,7 @@ public class lecture14_Home {
         //click on private button
         WebElement privateButton = driver.findElement(By.xpath("//*[@class='btn-private btn btn-primary']"));
         privateButton.click();
-        //  wait.until(ExpectedConditions.elementToBeSelected(privateButton));
+        //wait.until(ExpectedConditions.elementToBeSelected(privateButton));
 
 //        //wait until "Private" tab is selected
 //        WebElement privateTab = driver.findElement(By.xpath("//*[@class='btn-private btn btn-primary active']"));
